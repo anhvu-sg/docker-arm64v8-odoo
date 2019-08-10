@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM arm64v8/debian:stretch
 LABEL maintainer="Anh Vu <vuna2004@gmail.com>"
 
 # Generate locale C.UTF-8 for postgres and general locale data
