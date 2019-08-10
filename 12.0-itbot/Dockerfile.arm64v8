@@ -1,4 +1,5 @@
-FROM arm64v8/debian:stretch
+FROM debian:stretch
+# FROM arm64v8/debian:stretch
 LABEL maintainer="Anh Vu <vuna2004@gmail.com>"
 
 COPY qemu-aarch64-static /usr/bin/
@@ -105,3 +106,4 @@ USER odoo
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]
+
