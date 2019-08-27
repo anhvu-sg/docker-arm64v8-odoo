@@ -80,13 +80,18 @@ RUN set -x; \
         && dpkg --force-depends -i odoo.deb \
         && apt-get update \
         && apt-get -y install -f --no-install-recommends \
-        && rm -rf /var/lib/apt/lists/* odoo.deb
+        && rm -rf /var/lib/apt/lists/* odoo.deb \
+        && export SODIUM_INSTALL=system
+
 
 # Copy entrypoint script and Odoo configuration file
-RUN pip3 install num2words xlwt
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 RUN chown odoo /etc/odoo/odoo.conf
+
+# Install pip libraries
+RUN pip3 install -U setuptools wheel
+RUN python3 -m pip install --upgrade pip
 
 # Copy requirement.txt and install
 COPY ./requirements.txt /etc/odoo/

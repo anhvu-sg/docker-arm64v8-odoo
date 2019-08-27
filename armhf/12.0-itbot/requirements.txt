@@ -1,4 +1,4 @@
-setuptools
+num2words
 raven
 openpyxl
 xlrd
