@@ -27,17 +27,17 @@ RUN set -x; \
             python3-watchdog \
             xz-utils \
             build-essential \
+            gcc \
             libffi-dev \
+            libssl-dev \
             python3-dev \
             git \
             vim \
-            build-essential \
-            libssl-dev \
-            libffi-dev \
-            python-dev \
-       # && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.raspbian.buster_armhf.deb \
-       && curl -o wkhtmltox.deb -sSL http://ftp.hk.debian.org/debian/pool/main/w/wkhtmltopdf/wkhtmltopdf_0.12.5-1_armhf.deb \
-        && echo 'e955728c814483d3fff13e87258dc6b0eed8d86c wkhtmltox.deb' | sha1sum -c - \
+            libsodium-dev \
+            libzbar-dev \
+            libzbar0 \
+       && curl -o wkhtmltox.deb -sSL http://ftp.hk.debian.org/debian/pool/main/w/wkhtmltopdf/wkhtmltopdf_0.12.5-1_arm64.deb \
+        && echo '184582e24b52164807dabe5a72a7596d952bdf4f wkhtmltox.deb' | sha1sum -c - \
         && dpkg --force-depends -i wkhtmltox.deb\
         && apt-get -y install -f --no-install-recommends \
         && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
@@ -82,10 +82,16 @@ RUN set -x; \
         && rm -rf /var/lib/apt/lists/* odoo.deb
 
 # Copy entrypoint script and Odoo configuration file
-RUN pip3 install num2words xlwt
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 RUN chown odoo /etc/odoo/odoo.conf
+
+# Install pip libraries
+RUN pip3 install -U setuptools wheel
+RUN python3 -m pip install --upgrade pip
+
+# Handle for pynacl
+RUN SODIUM_INSTALL=system pip3 install pynacl
 
 # Copy requirement.txt and install
 COPY ./requirements.txt /etc/odoo/
