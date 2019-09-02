@@ -36,7 +36,6 @@ RUN set -x; \
             libsodium-dev \
             libzbar-dev \
             libzbar0 \
-            python \
        && curl -o wkhtmltox.deb -sSL http://ftp.hk.debian.org/debian/pool/main/w/wkhtmltopdf/wkhtmltopdf_0.12.5-1_arm64.deb \
         && echo '184582e24b52164807dabe5a72a7596d952bdf4f wkhtmltox.deb' | sha1sum -c - \
         && dpkg --force-depends -i wkhtmltox.deb\
