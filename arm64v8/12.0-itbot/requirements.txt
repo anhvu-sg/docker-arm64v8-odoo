@@ -7,3 +7,4 @@ pygount
 oauth2client
 google-api-python-client
 google-auth-oauthlib
+certifi
