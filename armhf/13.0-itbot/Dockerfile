@@ -88,8 +88,8 @@ COPY ./odoo.conf /etc/odoo/
 RUN chown odoo /etc/odoo/odoo.conf
 
 # Install pip libraries
-RUN pip3 install -U setuptools wheel
-RUN python3 -m pip install --upgrade pip
+# RUN pip3 install -U setuptools wheel
+# RUN python3 -m pip install --upgrade pip
 
 # Handle for pynacl
 RUN SODIUM_INSTALL=system pip3 install pynacl
